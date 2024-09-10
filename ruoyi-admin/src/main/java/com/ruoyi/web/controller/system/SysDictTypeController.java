@@ -35,6 +35,8 @@ public class SysDictTypeController extends BaseController
     @Autowired
     private ISysDictTypeService dictTypeService;
 
+
+
     @RequiresPermissions("system:dict:view")
     @GetMapping()
     public String dictType()

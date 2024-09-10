@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增Movie')" />
+    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: bootstrap-fileinput-css"/>
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-movie-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">简介：</label>
+                <div class="col-sm-8">
+                    <input name="info" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">电影名：</label>
+                <div class="col-sm-8">
+                    <input name="name" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">封面：</label>
+                <div class="col-sm-8">
+                    <input type="hidden" name="img">
+                    <div class="file-loading">
+                        <input class="form-control file-upload" id="img" name="file" type="file">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">导演：</label>
+                <div class="col-sm-8">
+                    <input name="direct" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">演员：</label>
+                <div class="col-sm-8">
+                    <input name="starts" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">发布时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="publicTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">时长：</label>
+                <div class="col-sm-8">
+                    <input name="runtime" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">剧照：</label>
+                <div class="col-sm-8">
+                    <input type="hidden" name="photos">
+                    <div class="file-loading">
+                        <input class="form-control file-upload" id="photos" name="file" type="file">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <th:block th:include="include :: bootstrap-fileinput-js"/>
+    <script th:inline="javascript">
+        var prefix = ctx + "system/movie"
+        $("#form-movie-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-movie-add').serialize());
+            }
+        }
+
+        $("input[name='publicTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+        var List = new Array();
+        $("#photos").fileinput({
+            uploadUrl: ctx + 'common/upload',
+            maxFileCount: 10,
+            // autoReplace: true
+        }).on('fileuploaded', function (event, data, previewId, index) {
+            // var urllength = $("input[name='" + event.currentTarget.id + "']").val().length
+            // if(urllength==0){
+            //     $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+            // }else{
+            //     var url = $("input[name='" + event.currentTarget.id + "']").val()
+            //     $("input[name='" + event.currentTarget.id + "']").val(url+","+data.response.url)
+            // }
+            // var url1 = $("input[name='" + event.currentTarget.id + "']").val()
+            // console.log(url1)
+            List.push({ FileName: data.response.url, KeyID: previewId })
+            const fileNamesArray = List.map(item => item.FileName);
+
+            const resultString = fileNamesArray.join(',');
+            $("input[name='" + event.currentTarget.id + "']").val(resultString)
+            var url1 = $("input[name='" + event.currentTarget.id + "']").val()
+            console.log(url1)
+        }).on('filesuccessremove', function (event, data,id, index) {
+            for (var i = 0; i < List.length; i++) {
+                if (List[i].KeyID == data) {
+                    List.splice(i,1)
+                }
+            }
+            const fileNamesArray = List.map(item => item.FileName);
+
+            const resultString = fileNamesArray.join(',');
+            $("input[name='" + event.currentTarget.id + "']").val(resultString)
+            var url1 = $("input[name='" + event.currentTarget.id + "']").val()
+            console.log(url1)
+        })
+        //在这里添加
+
+        $("#img").fileinput({
+            uploadUrl: ctx + 'common/upload',
+            maxFileCount: 1,
+            autoReplace: true
+        }).on('fileuploaded', function (event, data, previewId, index) {
+            $("input[name='" + event.currentTarget.id + "']").val(data.response.url)
+        }).on('fileremoved', function (event, id, index) {
+            $("input[name='" + event.currentTarget.id + "']").val('')
+        })
+    </script>
+</body>
+</html>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/assets/css/plugins.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link rel="stylesheet" href="/assets/css/css.css" />
+    <link href="//unpkg.com/layui@2.9.3/dist/css/layui.css" rel="stylesheet">
 
 </head>
 <body>
@@ -42,8 +44,8 @@
                                 class="btn btn-default dropdown-toggle lv1"
                                 data-toggle="dropdown"
                                 data-hover="dropdown"
-                                href="/movie/index"
-                        ><a href="/movie/index">主页</a>
+                                href="/index"
+                        ><a href="/index">主页</a>
 <!--                            <i class="fa fa-angle-down" aria-hidden="true"></i>-->
                         </a>
 <!--                        <ul class="dropdown-menu level1">-->
@@ -57,9 +59,9 @@
                                 class="btn btn-default dropdown-toggle lv1"
                                 data-toggle="dropdown"
                                 data-hover="dropdown"
-                                href="/movie/movies"
+                                href="/movies"
                         >
-                            <a href="/movie/movies">电影</a></a>
+                            <a href="/movies">电影</a></a>
 <!--                        <ul class="dropdown-menu level1">-->
                             <!-- <li class="dropdown"><a href="#">about us <i class="fa fa-caret-right" aria-hidden="true"></i></a><ul class="dropdown-menu level2"><li><a href="aboutv1.html">About Us 01</a></li><li><a href="aboutv2.html">About Us 02</a></li></ul></li>-->
 <!--                            <li><a href="moviegrid.html">Movie grid</a></li>-->
@@ -73,8 +75,7 @@
                     <li class="dropdown first">
                         <a
                                 class="btn btn-default dropdown-toggle lv1"
-                                href="/movie/echarts"
-                        > <a href="/movie/echarts">大数据</a>
+                                href="/movieecharts"> <a href="/movieecharts">大数据</a>
                              </a>
 
                     </li>
@@ -83,10 +84,9 @@
                                 class="btn btn-default dropdown-toggle lv1"
                                 data-toggle="dropdown"
                                 data-hover="dropdown"
-                                href="/movie/blog"
+                                href="/movieblog"
                         >
-                            <a href="/movie/blog">最新电影资讯</a></i
-                        ></a>
+                            <a href="/movieblog">最新电影资讯</a></a>
 <!--                        <ul class="dropdown-menu level1">-->
 <!--                            <li><a href="bloglist.html">blog List</a></li>-->
 <!--                            <li><a href="bloggrid.html">blog Grid</a></li>-->
@@ -101,7 +101,7 @@
                                 data-toggle="dropdown"
                                 data-hover="dropdown"
                         >
-                            <a href="/movie/blog">我的</a></a>
+                            <a href="/user/profile" th:unless="${session.user==null}">我的</a></a>
 <!--                        <ul class="dropdown-menu level1">-->
 <!--                            <li>-->
 <!--                                <a href="userfavoritegrid.html">user favorite grid</a>-->
@@ -113,7 +113,15 @@
 <!--                            <li class="it-last"><a href="userrate.html">user rate</a></li>-->
 <!--                        </ul>-->
                     </li>
+                    <li class="dropdown first">
+                        <a
+                                class="btn btn-default dropdown-toggle lv1"
+                                href="/admin/login"> <a href="/admin/login">后台管理系统</a>
+                        </a>
+
+                    </li>
                 </ul>
+
                 <ul class="nav navbar-nav flex-child-menu menu-right">
 <!--                    <li class="dropdown first">-->
 <!--                        <a-->
@@ -132,8 +140,8 @@
 <!--                        </ul>-->
 <!--                    </li>-->
 <!--                    <li><a href="#">Help</a></li>-->
-                    <li class="loginLink"><a href="#">登陆</a></li>
-                    <li class="btn signupLink"><a href="#">注册</a></li>
+                        <li class="loginLink" th:if="${session.user==null}"><a href="#">登陆</a></li>
+                        <li class="btn signupLink" th:if="${session.user==null}"><a href="#">注册</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -146,7 +154,7 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>登陆</h3>
-        <form method="post" action="login.php">
+        <form method="post">
             <div class="row">
                 <label for="username"
                 >用户名:<input
@@ -154,7 +162,6 @@
                         name="username"
                         id="username"
                         placeholder=""
-                        pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
                         required="required"
                 /></label>
             </div>
@@ -164,8 +171,7 @@
                         type="password"
                         name="password"
                         id="password"
-                        placeholder="start"
-                        pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                        placeholder=""
                         required="required"
                 /></label>
             </div>
@@ -181,7 +187,7 @@
 <!--                    <a href="#">Forget password ?</a>-->
 <!--                </div>-->
 <!--            </div>-->
-            <div class="row"><button type="submit">Login</button></div>
+            <div class="row"><button type="button" id="login-btn">Login</button></div>
         </form>
 <!--        <div class="row">-->
 <!--            <p>Or via social</p>-->
@@ -199,7 +205,7 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>注册</h3>
-        <form method="post" action="signup.php">
+        <form method="post" action="/moviesignup">
             <div class="row">
                 <label for="username-2"
                 >用户名:<input
@@ -207,18 +213,16 @@
                         name="username"
                         id="username-2"
                         placeholder=""
-                        pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
                         required="required"
                 /></label>
             </div>
             <div class="row">
                 <label for="email-2">
                     邮箱:<input
-                        type="password"
+                        type="email"
                         name="email"
                         id="email-2"
                         placeholder=""
-                        pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                         required="required"
                 /></label>
             </div>
@@ -229,7 +233,6 @@
                         name="password"
                         id="password-2"
                         placeholder=""
-                        pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                         required="required"
                 /></label>
             </div>
@@ -240,18 +243,68 @@
                         name="password"
                         id="repassword-2"
                         placeholder=""
-                        pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                         required="required"
                 /></label>
             </div>
-            <div class="row"><button type="submit">注册</button></div>
+            <div class="row"><button type="submit" >注册</button></div>
         </form>
     </div>
 </div>
 
+<div class="user-information" th:fragment="user-sidbar">
+    <div class="user-img">
+        <a href="#"
+        ><img src="/assets/picture/user-img.png" th:src="${session.user.getImg()}" alt="" /><br />
+        </a>
+        <!--                <a href="#" class="redbtn">Change avatar</a>-->
+    </div>
+    <div class="user-fav">
+        <p>账户信息</p>
+        <ul>
+            <li class="active"><a href="/user/profile">个人简介</a></li>
+            <li><a href="/user/favo">个人收藏</a></li>
+            <li><a href="/user/rate">个人评价</a></li>
+        </ul>
+    </div>
+</div>
+
+
+<script src="//unpkg.com/layui@2.9.3/dist/layui.js"></script>
 <script src="/assets/js/jquery.js"></script>
 <script src="/assets/js/plugins.js"></script>
 <script src="/assets/js/plugins2.js"></script>
 <script src="/assets/js/custom.js"></script>
+<script src="/assets/js/common.js"></script>
+
+<script>
+    $(document).ready(function(){
+        // Bind click event to the login button
+        $('#login-btn').click(function(){
+            // Get username and password input values
+            var username = $('#username').val();
+            var password = $('#password').val();
+
+            // Make AJAX request to the backend
+            $.ajax({
+                type: 'POST',
+                url: '/movielogin',
+                data: {
+                    username: username,
+                    password: password
+                },
+                success: function(response){
+                    // Handle success response
+                    console.log(response);
+                    // You can redirect or show a success message here
+                },
+                error: function(xhr, status, error){
+                    // Handle error response
+                    console.error(xhr.responseText);
+                    // You can show an error message to the user here
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

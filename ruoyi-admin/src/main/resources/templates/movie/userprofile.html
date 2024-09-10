@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<!--[if IE 7]><html class="ie ie7 no-js" lang="en-US"><!
-[endif]--><!--[if IE 8]><html class="ie ie8 no-js" lang="en-US"><!
-[endif]--><!--[if !(IE 7) | !(IE 8)]><!-->
-<html lang="en" class="no-js">
+
+<html lang="en" class="no-js" xmlns:th="http://www.thymeleaf.org">
   <head>
     <!-- Basic need -->
-    <title>Open Pediatrics</title>
+    <title>电影可视化推荐系统</title>
     <meta charset="UTF-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -19,6 +17,8 @@
     <!-- CSS files -->
     <link rel="stylesheet" href="/assets/css/plugins.css" />
     <link rel="stylesheet" href="/assets/css/style.css" />
+    <link href="//unpkg.com/layui@2.9.3/dist/css/layui.css" rel="stylesheet">
+
   </head>
   <body>
     <!--preloading-->
@@ -32,114 +32,9 @@
       />
       <div id="status"><span></span><span></span></div>
     </div>
-    <!--end of preloading--><!--login form popup-->
-    <div class="login-wrapper" id="login-content">
-      <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>Login</h3>
-        <form method="post" action="login.php">
-          <div class="row">
-            <label for="username"
-              >Username:<input
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Hugh Jackman"
-                pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
-                required="required"
-            /></label>
-          </div>
-          <div class="row">
-            <label for="password">
-              Password:<input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="******"
-                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                required="required"
-            /></label>
-          </div>
-          <div class="row">
-            <div class="remember">
-              <div>
-                <input
-                  type="checkbox"
-                  name="remember"
-                  value="Remember me"
-                /><span>Remember me</span>
-              </div>
-              <a href="#">Forget password ?</a>
-            </div>
-          </div>
-          <div class="row"><button type="submit">Login</button></div>
-        </form>
-        <div class="row">
-          <p>Or via social</p>
-          <div class="social-btn-2">
-            <a class="fb" href="#"
-              ><i class="ion-social-facebook"></i>Facebook</a
-            ><a class="tw" href="#"
-              ><i class="ion-social-twitter"></i>twitter</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+    <div th:replace="~{movie/common::login-content}"></div>
     <!--end of login form popup--><!--signup form popup-->
-    <div class="login-wrapper" id="signup-content">
-      <div class="login-content">
-        <a href="#" class="close">x</a>
-        <h3>sign up</h3>
-        <form method="post" action="signup.php">
-          <div class="row">
-            <label for="username-2"
-              >Username:<input
-                type="text"
-                name="username"
-                id="username-2"
-                placeholder="Hugh Jackman"
-                pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
-                required="required"
-            /></label>
-          </div>
-          <div class="row">
-            <label for="email-2">
-              your email:<input
-                type="password"
-                name="email"
-                id="email-2"
-                placeholder=""
-                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                required="required"
-            /></label>
-          </div>
-          <div class="row">
-            <label for="password-2">
-              Password:<input
-                type="password"
-                name="password"
-                id="password-2"
-                placeholder=""
-                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                required="required"
-            /></label>
-          </div>
-          <div class="row">
-            <label for="repassword-2">
-              re-type Password:<input
-                type="password"
-                name="password"
-                id="repassword-2"
-                placeholder=""
-                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
-                required="required"
-            /></label>
-          </div>
-          <div class="row"><button type="submit">sign up</button></div>
-        </form>
-      </div>
-    </div>
+    <div th:replace="~{movie/common::signup-content}"></div>
     <!--end of signup form popup--><!-- BEGIN | Header -->
     <div th:replace="~{movie/common::common_header}"></div>
 
@@ -149,11 +44,11 @@
         <div class="row">
           <div class="col-md-12">
             <div class="hero-ct">
-              <h1>Edward kennedy’s profile</h1>
-              <ul class="breadcumb">
-                <li class="active"><a href="#">Home</a></li>
-                <li><span class="ion-ios-arrow-right"></span>Profile</li>
-              </ul>
+              <h1>个人简历</h1>
+<!--              <ul class="breadcumb">-->
+<!--                <li class="active"><a href="#">Home</a></li>-->
+<!--                <li><span class="ion-ios-arrow-right"></span>Profile</li>-->
+<!--              </ul>-->
             </div>
           </div>
         </div>
@@ -163,98 +58,53 @@
       <div class="container">
         <div class="row ipad-width">
           <div class="col-md-3 col-sm-12 col-xs-12">
-            <div class="user-information">
-              <div class="user-img">
-                <a href="#"
-                  ><img src="/assets/picture/user-img.png" alt="" /><br /></a
-                ><a href="#" class="redbtn">Change avatar</a>
-              </div>
-              <div class="user-fav">
-                <p>Account Details</p>
-                <ul>
-                  <li class="active"><a href="">Profile</a></li>
-                  <li><a href="userfavoritelist.html">Favorite movies</a></li>
-                  <li><a href="userrate.html">Rated movies</a></li>
-                </ul>
-              </div>
-              <div class="user-fav">
-                <p>Others</p>
-                <ul>
-                  <li><a href="#">Change password</a></li>
-                  <li><a href="#">Log out</a></li>
-                </ul>
-              </div>
-            </div>
+            <div th:replace="~{movie/common::user-sidbar}"></div>
           </div>
           <div class="col-md-9 col-sm-12 col-xs-12">
             <div class="form-style-1 user-pro" action="">
               <form action="" class="user">
-                <h4>01. Profile details</h4>
+                <h4>修改用户信息</h4>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Username</label
-                    ><input type="text" placeholder="edwardkennedy" />
+                    <label>用户名</label
+                    ><input type="text" placeholder="" />
                   </div>
                   <div class="col-md-6 form-it">
-                    <label>Email Address</label
-                    ><input type="text" placeholder="edward@kennedy.com" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 form-it">
-                    <label>First Name</label
-                    ><input type="text" placeholder="Edward " />
-                  </div>
-                  <div class="col-md-6 form-it">
-                    <label>Last Name</label
-                    ><input type="text" placeholder="Kennedy" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 form-it">
-                    <label>Country</label
-                    ><select>
-                      <option value="united">United States</option>
-                      <option value="saab">Others</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6 form-it">
-                    <label>State</label
-                    ><select>
-                      <option value="united">New York</option>
-                      <option value="saab">Others</option>
-                    </select>
+                    <label>邮箱</label
+                    ><input type="text" placeholder="" />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-2">
-                    <input class="submit" type="submit" value="save" />
+                    <input class="submit" type="submit" value="保存" />
                   </div>
                 </div>
               </form>
+              <input class="submit" type="button" id="logout" value="退出登录" style="width: 13%" />
+
               <form action="" class="password">
-                <h4>02. Change password</h4>
+                <h4>修改密码</h4>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Old Password</label
+                    <label>旧密码</label
                     ><input type="text" placeholder="**********" />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>New Password</label
+                    <label>新密码</label
                     ><input type="text" placeholder="***************" />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-it">
-                    <label>Confirm New Password</label
+                    <label>确认新密码</label
                     ><input type="text" placeholder="*************** " />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-2">
-                    <input class="submit" type="submit" value="change" />
+                    <input class="submit" type="submit" value="确认" />
                   </div>
                 </div>
               </form>
@@ -264,83 +114,39 @@
       </div>
     </div>
     <!-- footer section-->
-    <footer class="ht-footer">
-      <div class="container">
-        <div class="flex-parent-ft">
-          <div class="flex-child-ft item1">
-            <a href="index.html"
-              ><img class="logo" src="/assets/picture/logo1.png" alt=""
-            /></a>
-            <p>
-              5th Avenue st, manhattan<br />
-              New York, NY 10001
-            </p>
-            <p>Call us: <a href="#">(+01) 202 342 6789</a></p>
-          </div>
-          <div class="flex-child-ft item2">
-            <h4>Resources</h4>
-            <ul>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Blockbuster</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Forums</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Help Center</a></li>
-            </ul>
-          </div>
-          <div class="flex-child-ft item3">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="#">Terms of Use</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Security</a></li>
-            </ul>
-          </div>
-          <div class="flex-child-ft item4">
-            <h4>Account</h4>
-            <ul>
-              <li><a href="#">My Account</a></li>
-              <li><a href="#">Watchlist</a></li>
-              <li><a href="#">Collections</a></li>
-              <li><a href="#">User Guide</a></li>
-            </ul>
-          </div>
-          <div class="flex-child-ft item5">
-            <h4>Newsletter</h4>
-            <p>
-              Subscribe to our newsletter system now <br />to get latest news
-              from us.
-            </p>
-            <form action="#">
-              <input type="text" placeholder="Enter your email..." />
-            </form>
-            <a href="#" class="btn"
-              >Subscribe now <i class="ion-ios-arrow-forward"></i
-            ></a>
-          </div>
-        </div>
-      </div>
-      <div class="ft-copyright">
-        <div class="ft-left">
-          <p>
-            © 2017 Blockbuster. All Rights
-            <a href="javascript:;" title="17sucai">Reserved</a>. Designed by
-            leehari.
-          </p>
-        </div>
-        <div class="backtotop">
-          <p>
-            <a href="#" id="back-to-top"
-              >Back to top <i class="ion-ios-arrow-thin-up"></i
-            ></a>
-          </p>
-        </div>
-      </div>
-    </footer>
     <!-- end of footer section-->
     <script src="/assets/js/jquery.js"></script>
     <script src="/assets/js/plugins.js"></script>
     <script src="/assets/js/plugins2.js"></script>
     <script src="/assets/js/custom.js"></script>
+    <script src="//unpkg.com/layui@2.9.3/dist/layui.js"></script>
+
+    <script>
+    $(document).ready(function(){
+      // 绑定点击事件到退出按钮
+      $('#logout').click(function(){
+        // 向后端发起 AJAX 请求
+        $.ajax({
+          type: 'get',
+          url: '/logout', // 替换成你的退出登录后台处理地址
+          success: function(response){
+            // 处理成功响应
+            console.log(response);
+            layui.use(function () {
+              var layer = layui.layer;
+              layer.alert("登录成功")
+            })
+            window.location.href = '/index'; // 替换成你的 index 页面地址
+            // 重定向到 index 页面
+          },
+          error: function(xhr, status, error){
+            // 处理错误响应
+            console.error(xhr.responseText);
+            // 你可以在这里向用户显示错误消息
+          }
+        });
+      });
+    });
+  </script>
   </body>
 </html>

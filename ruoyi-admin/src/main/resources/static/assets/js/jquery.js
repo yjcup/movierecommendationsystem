@@ -461,7 +461,7 @@ jQuery.extend( {
 				}
 			}
 
-		// Go through every key on the object,
+		// Go through every key1 on the object,
 		} else {
 			for ( i in elems ) {
 				value = callback( elems[ i ], i, arg );
@@ -891,7 +891,7 @@ function Sizzle( selector, context, results, seed ) {
 }
 
 /**
- * Create key-value caches of limited size
+ * Create key1-value caches of limited size
  * @returns {function(string, object)} Returns the Object data after storing it on itself with
  *	property name the (space-suffixed) string and (if the cache is larger than Expr.cacheLength)
  *	deleting the oldest entry
@@ -899,13 +899,13 @@ function Sizzle( selector, context, results, seed ) {
 function createCache() {
 	var keys = [];
 
-	function cache( key, value ) {
-		// Use (key + " ") to avoid collision with native prototype properties (see Issue #157)
-		if ( keys.push( key + " " ) > Expr.cacheLength ) {
+	function cache( key1, value ) {
+		// Use (key1 + " ") to avoid collision with native prototype properties (see Issue #157)
+		if ( keys.push( key1 + " " ) > Expr.cacheLength ) {
 			// Only keep the most recent entries
 			delete cache[ keys.shift() ];
 		}
-		return (cache[ key + " " ] = value);
+		return (cache[ key1 + " " ] = value);
 	}
 	return cache;
 }
@@ -2253,8 +2253,8 @@ function toSelector( tokens ) {
 function addCombinator( matcher, combinator, base ) {
 	var dir = combinator.dir,
 		skip = combinator.next,
-		key = skip || dir,
-		checkNonElements = base && key === "parentNode",
+		key1 = skip || dir,
+		checkNonElements = base && key1 === "parentNode",
 		doneName = done++;
 
 	return combinator.first ?
@@ -2293,14 +2293,14 @@ function addCombinator( matcher, combinator, base ) {
 
 						if ( skip && skip === elem.nodeName.toLowerCase() ) {
 							elem = elem[ dir ] || elem;
-						} else if ( (oldCache = uniqueCache[ key ]) &&
+						} else if ( (oldCache = uniqueCache[ key1 ]) &&
 							oldCache[ 0 ] === dirruns && oldCache[ 1 ] === doneName ) {
 
 							// Assign to newCache so results back-propagate to previous elements
 							return (newCache[ 2 ] = oldCache[ 2 ]);
 						} else {
 							// Reuse newcache so results back-propagate to previous elements
-							uniqueCache[ key ] = newCache;
+							uniqueCache[ key1 ] = newCache;
 
 							// A match means we're done; a fail means we have to keep checking
 							if ( (newCache[ 2 ] = matcher( elem, context, xml )) ) {
@@ -3949,16 +3949,16 @@ if ( document.readyState === "complete" ||
 
 // Multifunctional method to get and set values of a collection
 // The value/s can optionally be executed if it's a function
-var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
+var access = function( elems, fn, key1, value, chainable, emptyGet, raw ) {
 	var i = 0,
 		len = elems.length,
-		bulk = key == null;
+		bulk = key1 == null;
 
 	// Sets many values
-	if ( jQuery.type( key ) === "object" ) {
+	if ( jQuery.type( key1 ) === "object" ) {
 		chainable = true;
-		for ( i in key ) {
-			access( elems, fn, i, key[ i ], true, emptyGet, raw );
+		for ( i in key1 ) {
+			access( elems, fn, i, key1[ i ], true, emptyGet, raw );
 		}
 
 	// Sets one value
@@ -3979,7 +3979,7 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 			// ...except when executing function values
 			} else {
 				bulk = fn;
-				fn = function( elem, key, value ) {
+				fn = function( elem, key1, value ) {
 					return bulk.call( jQuery( elem ), value );
 				};
 			}
@@ -3988,9 +3988,9 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 		if ( fn ) {
 			for ( ; i < len; i++ ) {
 				fn(
-					elems[ i ], key, raw ?
+					elems[ i ], key1, raw ?
 					value :
-					value.call( elems[ i ], i, fn( elems[ i ], key ) )
+					value.call( elems[ i ], i, fn( elems[ i ], key1 ) )
 				);
 			}
 		}
@@ -4005,7 +4005,7 @@ var access = function( elems, fn, key, value, chainable, emptyGet, raw ) {
 		return fn.call( elems );
 	}
 
-	return len ? fn( elems[ 0 ], key ) : emptyGet;
+	return len ? fn( elems[ 0 ], key1 ) : emptyGet;
 };
 var acceptData = function( owner ) {
 
@@ -4066,8 +4066,8 @@ Data.prototype = {
 		var prop,
 			cache = this.cache( owner );
 
-		// Handle: [ owner, key, value ] args
-		// Always use camelCase key (gh-2257)
+		// Handle: [ owner, key1, value ] args
+		// Always use camelCase key1 (gh-2257)
 		if ( typeof data === "string" ) {
 			cache[ jQuery.camelCase( data ) ] = value;
 
@@ -4081,45 +4081,45 @@ Data.prototype = {
 		}
 		return cache;
 	},
-	get: function( owner, key ) {
-		return key === undefined ?
+	get: function( owner, key1 ) {
+		return key1 === undefined ?
 			this.cache( owner ) :
 
-			// Always use camelCase key (gh-2257)
-			owner[ this.expando ] && owner[ this.expando ][ jQuery.camelCase( key ) ];
+			// Always use camelCase key1 (gh-2257)
+			owner[ this.expando ] && owner[ this.expando ][ jQuery.camelCase( key1 ) ];
 	},
-	access: function( owner, key, value ) {
+	access: function( owner, key1, value ) {
 
 		// In cases where either:
 		//
-		//   1. No key was specified
-		//   2. A string key was specified, but no value provided
+		//   1. No key1 was specified
+		//   2. A string key1 was specified, but no value provided
 		//
 		// Take the "read" path and allow the get method to determine
 		// which value to return, respectively either:
 		//
 		//   1. The entire cache object
-		//   2. The data stored at the key
+		//   2. The data stored at the key1
 		//
-		if ( key === undefined ||
-				( ( key && typeof key === "string" ) && value === undefined ) ) {
+		if ( key1 === undefined ||
+				( ( key1 && typeof key1 === "string" ) && value === undefined ) ) {
 
-			return this.get( owner, key );
+			return this.get( owner, key1 );
 		}
 
-		// When the key is not a string, or both a key and value
+		// When the key1 is not a string, or both a key1 and value
 		// are specified, set or extend (existing objects) with either:
 		//
 		//   1. An object of properties
-		//   2. A key and value
+		//   2. A key1 and value
 		//
-		this.set( owner, key, value );
+		this.set( owner, key1, value );
 
 		// Since the "set" path can have two possible entry points
 		// return the expected data based on which path was taken[*]
-		return value !== undefined ? value : key;
+		return value !== undefined ? value : key1;
 	},
-	remove: function( owner, key ) {
+	remove: function( owner, key1 ) {
 		var i,
 			cache = owner[ this.expando ];
 
@@ -4127,33 +4127,33 @@ Data.prototype = {
 			return;
 		}
 
-		if ( key !== undefined ) {
+		if ( key1 !== undefined ) {
 
 			// Support array or space separated string of keys
-			if ( jQuery.isArray( key ) ) {
+			if ( jQuery.isArray( key1 ) ) {
 
-				// If key is an array of keys...
+				// If key1 is an array of keys...
 				// We always set camelCase keys, so remove that.
-				key = key.map( jQuery.camelCase );
+				key1 = key1.map( jQuery.camelCase );
 			} else {
-				key = jQuery.camelCase( key );
+				key1 = jQuery.camelCase( key1 );
 
-				// If a key with the spaces exists, use it.
+				// If a key1 with the spaces exists, use it.
 				// Otherwise, create an array by matching non-whitespace
-				key = key in cache ?
-					[ key ] :
-					( key.match( rnothtmlwhite ) || [] );
+				key1 = key1 in cache ?
+					[ key1 ] :
+					( key1.match( rnothtmlwhite ) || [] );
 			}
 
-			i = key.length;
+			i = key1.length;
 
 			while ( i-- ) {
-				delete cache[ key[ i ] ];
+				delete cache[ key1[ i ] ];
 			}
 		}
 
 		// Remove the expando if there's no more data
-		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
+		if ( key1 === undefined || jQuery.isEmptyObject( cache ) ) {
 
 			// Support: Chrome <=35 - 45
 			// Webkit & Blink performance suffers when deleting properties
@@ -4215,13 +4215,13 @@ function getData( data ) {
 	return data;
 }
 
-function dataAttr( elem, key, data ) {
+function dataAttr( elem, key1, data ) {
 	var name;
 
 	// If nothing was found internally, try to fetch any
 	// data from the HTML5 data-* attribute
 	if ( data === undefined && elem.nodeType === 1 ) {
-		name = "data-" + key.replace( rmultiDash, "-$&" ).toLowerCase();
+		name = "data-" + key1.replace( rmultiDash, "-$&" ).toLowerCase();
 		data = elem.getAttribute( name );
 
 		if ( typeof data === "string" ) {
@@ -4230,7 +4230,7 @@ function dataAttr( elem, key, data ) {
 			} catch ( e ) {}
 
 			// Make sure we set the data so it isn't changed later
-			dataUser.set( elem, key, data );
+			dataUser.set( elem, key1, data );
 		} else {
 			data = undefined;
 		}
@@ -4263,13 +4263,13 @@ jQuery.extend( {
 } );
 
 jQuery.fn.extend( {
-	data: function( key, value ) {
+	data: function( key1, value ) {
 		var i, name, data,
 			elem = this[ 0 ],
 			attrs = elem && elem.attributes;
 
 		// Gets all values
-		if ( key === undefined ) {
+		if ( key1 === undefined ) {
 			if ( this.length ) {
 				data = dataUser.get( elem );
 
@@ -4295,9 +4295,9 @@ jQuery.fn.extend( {
 		}
 
 		// Sets multiple values
-		if ( typeof key === "object" ) {
+		if ( typeof key1 === "object" ) {
 			return this.each( function() {
-				dataUser.set( this, key );
+				dataUser.set( this, key1 );
 			} );
 		}
 
@@ -4312,15 +4312,15 @@ jQuery.fn.extend( {
 			if ( elem && value === undefined ) {
 
 				// Attempt to get data from the cache
-				// The key will always be camelCased in Data
-				data = dataUser.get( elem, key );
+				// The key1 will always be camelCased in Data
+				data = dataUser.get( elem, key1 );
 				if ( data !== undefined ) {
 					return data;
 				}
 
 				// Attempt to "discover" the data in
 				// HTML5 custom data-* attrs
-				data = dataAttr( elem, key );
+				data = dataAttr( elem, key1 );
 				if ( data !== undefined ) {
 					return data;
 				}
@@ -4332,15 +4332,15 @@ jQuery.fn.extend( {
 			// Set the data...
 			this.each( function() {
 
-				// We always store the camelCased key
-				dataUser.set( this, key, value );
+				// We always store the camelCased key1
+				dataUser.set( this, key1, value );
 			} );
 		}, null, value, arguments.length > 1, null, true );
 	},
 
-	removeData: function( key ) {
+	removeData: function( key1 ) {
 		return this.each( function() {
-			dataUser.remove( this, key );
+			dataUser.remove( this, key1 );
 		} );
 	}
 } );
@@ -4403,10 +4403,10 @@ jQuery.extend( {
 
 	// Not public - generate a queueHooks object, or return the current one
 	_queueHooks: function( elem, type ) {
-		var key = type + "queueHooks";
-		return dataPriv.get( elem, key ) || dataPriv.access( elem, key, {
+		var key1 = type + "queueHooks";
+		return dataPriv.get( elem, key1 ) || dataPriv.access( elem, key1, {
 			empty: jQuery.Callbacks( "once memory" ).add( function() {
-				dataPriv.remove( elem, [ type + "queue", key ] );
+				dataPriv.remove( elem, [ type + "queue", key1 ] );
 			} )
 		} );
 	}
@@ -4877,7 +4877,7 @@ var documentElement = document.documentElement;
 
 
 var
-	rkeyEvent = /^key/,
+	rkeyEvent = /^key1/,
 	rmouseEvent = /^(?:mouse|pointer|contextmenu|drag|drop)|click/,
 	rtypenamespace = /^([^.]*)(?:\.(.+)|)/;
 
@@ -5235,7 +5235,7 @@ jQuery.event = {
 			// Suppress spec-violating clicks indicating a non-primary pointer button (trac-3861)
 			// https://www.w3.org/TR/DOM-Level-3-Events/#event-type-click
 			// Support: IE 11 only
-			// ...but not arrow key "clicks" of radio inputs, which can have `button` -1 (gh-2343)
+			// ...but not arrow key1 "clicks" of radio inputs, which can have `button` -1 (gh-2343)
 			!( event.type === "click" && event.button >= 1 ) ) {
 
 			for ( ; cur !== this; cur = cur.parentNode || this ) {
@@ -5478,7 +5478,7 @@ jQuery.each( {
 	view: true,
 	"char": true,
 	charCode: true,
-	key: true,
+	key1: true,
 	keyCode: true,
 	button: true,
 	buttons: true,
@@ -5497,7 +5497,7 @@ jQuery.each( {
 	which: function( event ) {
 		var button = event.button;
 
-		// Add which for key events
+		// Add which for key1 events
 		if ( event.which == null && rkeyEvent.test( event.type ) ) {
 			return event.charCode != null ? event.charCode : event.keyCode;
 		}
@@ -8389,18 +8389,18 @@ function buildParams( prefix, obj, traditional, add ) {
 }
 
 // Serialize an array of form elements or a set of
-// key/values into a query string
+// key1/values into a query string
 jQuery.param = function( a, traditional ) {
 	var prefix,
 		s = [],
-		add = function( key, valueOrFunction ) {
+		add = function( key1, valueOrFunction ) {
 
 			// If value is a function, invoke it and use its return value
 			var value = jQuery.isFunction( valueOrFunction ) ?
 				valueOrFunction() :
 				valueOrFunction;
 
-			s[ s.length ] = encodeURIComponent( key ) + "=" +
+			s[ s.length ] = encodeURIComponent( key1 ) + "=" +
 				encodeURIComponent( value == null ? "" : value );
 		};
 
@@ -8479,14 +8479,14 @@ var
 	 * 2) These are called:
 	 *    - BEFORE asking for a transport
 	 *    - AFTER param serialization (s.data is a string if s.processData is true)
-	 * 3) key is the dataType
+	 * 3) key1 is the dataType
 	 * 4) the catchall symbol "*" can be used
 	 * 5) execution will start with transport dataType and THEN continue down to "*" if needed
 	 */
 	prefilters = {},
 
 	/* Transports bindings
-	 * 1) key is the dataType
+	 * 1) key1 is the dataType
 	 * 2) the catchall symbol "*" can be used
 	 * 3) selection will start with transport dataType and THEN go to "*" if needed
 	 */
@@ -8564,12 +8564,12 @@ function inspectPrefiltersOrTransports( structure, options, originalOptions, jqX
 // that takes "flat" options (not to be deep extended)
 // Fixes #9887
 function ajaxExtend( target, src ) {
-	var key, deep,
+	var key1, deep,
 		flatOptions = jQuery.ajaxSettings.flatOptions || {};
 
-	for ( key in src ) {
-		if ( src[ key ] !== undefined ) {
-			( flatOptions[ key ] ? target : ( deep || ( deep = {} ) ) )[ key ] = src[ key ];
+	for ( key1 in src ) {
+		if ( src[ key1 ] !== undefined ) {
+			( flatOptions[ key1 ] ? target : ( deep || ( deep = {} ) ) )[ key1 ] = src[ key1 ];
 		}
 	}
 	if ( deep ) {
@@ -8900,7 +8900,7 @@ jQuery.extend( {
 				readyState: 0,
 
 				// Builds headers hashtable if needed
-				getResponseHeader: function( key ) {
+				getResponseHeader: function( key1 ) {
 					var match;
 					if ( completed ) {
 						if ( !responseHeaders ) {
@@ -8909,7 +8909,7 @@ jQuery.extend( {
 								responseHeaders[ match[ 1 ].toLowerCase() ] = match[ 2 ];
 							}
 						}
-						match = responseHeaders[ key.toLowerCase() ];
+						match = responseHeaders[ key1.toLowerCase() ];
 					}
 					return match == null ? null : match;
 				},

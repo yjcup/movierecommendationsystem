@@ -3,6 +3,7 @@ package com.ruoyi.web.controller.system;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -127,10 +128,11 @@ public class SysIndexController extends BaseController
 
     // 系统介绍
     @GetMapping("/system/main")
-    public String main(ModelMap mmap)
+    public String main(ModelMap mmap, HttpServletRequest request)
+
     {
         mmap.put("version", RuoYiConfig.getVersion());
-        return "main_v1";
+        return "system/MovieUser//MovieUser";
     }
 
     // content-main class

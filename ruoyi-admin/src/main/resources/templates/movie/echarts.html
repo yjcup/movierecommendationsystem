@@ -37,21 +37,21 @@
 
   <body style="font-size: 12px;background-color: #020d18">
   <div class="navbar1" style="margin: 0;margin-left: 60px;margin-top: 30px">
-    <a class="active" href="/movie/index">主页</a>
-    <a href="/movie/movies">电影</a>
-    <a href="/movie/echarts">大数据</a>
-    <a href="/movie/blog">最新电影资讯</a>
-    <a href="/user/profile">我的</a>
+    <a class="active" href="/index">主页</a>
+    <a href="/movies">电影</a>
+    <a href="/movieecharts">大数据</a>
+    <a href="/movieblog">最新电影资讯</a>
+    <a href="/user/profile" th:unless="${session.user==null}">我的</a>
   </div>
 
   <header>
-      <h1>新能源汽车数量统计</h1>
+      <h1>电影网站可视化</h1>
       <div class="showTime"><span>2023-12-23 15:35:43</span></div>
     </header>
     <section class="mainbox">
       <div class="column">
         <div class="panel pie">
-          <h2>各类型新能源汽车上牌数</h2>
+          <h2>各类型电影数量占比</h2>
           <div
             class="chart"
             _echarts_instance_="ec_1703316923334"
@@ -95,7 +95,7 @@
           <div class="panel-footer"></div>
         </div>
         <div class="panel pie1">
-          <h2>新能源汽车不同价格的占比</h2>
+          <h2>各评分数量</h2>
           <div
             class="chart"
             _echarts_instance_="ec_1703316923335"
@@ -141,7 +141,7 @@
       <div class="column">
         <div class="no">
           <div class="panel words">
-            <h2>用户评论</h2>
+            <h2>用户评论词云图</h2>
             <div
               class="chart"
               _echarts_instance_="ec_1703316923336"
@@ -185,22 +185,22 @@
           <div class="num_box panel">
             <div class="no-hd">
               <ul>
-                <li class="counter">307,453</li>
+                <li class="counter">[[${moviecount}]]</li>
               </ul>
             </div>
             <div class="no-bd">
               <ul>
-                <li>新能源汽车销量总数</li>
+                <li>网站收录电影数量</li>
               </ul>
             </div>
             <div class="no-hd">
               <ul>
-                <li class="counter">33,193</li>
+                <li class="counter">[[${commentcount}]]</li>
               </ul>
             </div>
             <div class="no-bd">
               <ul>
-                <li>新能源销量Top1：Model Y</li>
+                <li>已评论数量</li>
               </ul>
             </div>
             <div class="panel-footer"></div>
@@ -208,7 +208,7 @@
         </div>
         <div style="height: 49%">
           <div class="panel map">
-            <h2>各类别销售(上牌数)趋势</h2>
+            <h2>网站近七天访问量</h2>
             <div
               class="chart"
               style="
@@ -255,7 +255,7 @@
       </div>
       <div class="column">
         <div class="panel bar">
-          <h2>新能源汽车销量前10</h2>
+          <h2>电影热度前10</h2>
           <div
             class="chart"
             _echarts_instance_="ec_1703316923337"
@@ -379,7 +379,7 @@
           <div class="panel-footer"></div>
         </div>
         <div class="panel bar1">
-          <h2>新能源汽车销量后10</h2>
+          <h2>评分前10</h2>
           <div
             class="chart"
             _echarts_instance_="ec_1703316923338"
@@ -426,10 +426,11 @@
     <script src="/assets/static/flexible.js"></script>
     <script src="/assets/static/echarts.min.js"></script>
     <script src="/assets/static/echarts-words.js"></script>
-    <script src="/assets/static/index.js"></script>
+  <script src="/assets/static/jquery.js"></script>
+
+  <script src="/assets/static/index.js"></script>
     <script src="/assets/static/china.js"></script>
     <script src="/assets/static/myMap.js"></script>
-    <script src="/assets/static/jquery.js"></script>
     <script src="/assets/static/jquery.waypoints.min.js"></script>
     <script src="/assets/static/jquery.countup.min.js"></script>
     <script type="text/javascript">

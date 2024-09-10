@@ -220,30 +220,30 @@ Constraint declaration=No
 
 [FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key]
 
-[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Primary key]
+[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Primary key1]
 Create=Yes
 Drop=Yes
 Comment=Yes
 
-[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Primary key\Create]
+[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Primary key1\Create]
 Constraint declaration=No
 Physical Options=Yes
 
-[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Alternate key]
+[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Alternate key1]
 Create=Yes
 Drop=Yes
 Comment=Yes
 
-[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Alternate key\Create]
+[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Key\Alternate key1\Create]
 Constraint declaration=No
 Physical Options=Yes
 
-[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Foreign key]
+[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Foreign key1]
 Create=Yes
 Drop=Yes
 Comment=Yes
 
-[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Foreign key\Create]
+[FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Foreign key1\Create]
 Constraint declaration=Yes
 
 [FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Index]
@@ -256,9 +256,9 @@ Constraint declaration=Yes
 Physical Options=Yes
 
 [FolderOptions\Physical Objects\Database Generation\Table&amp;&amp;Column\Index\Filter]
-Primary key=No
-Foreign key=No
-Alternate key=No
+Primary key1=No
+Foreign key1=No
+Alternate key1=No
 Cluster=Yes
 Other=Yes
 

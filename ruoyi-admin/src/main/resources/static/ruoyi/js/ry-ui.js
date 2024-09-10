@@ -354,6 +354,21 @@ var table = {
                     return $.common.nullToStr(value);
                 }
             },
+            imageView1: function (value, height, width, target) {
+                if ($.common.isEmpty(width)) {
+                    width = 'auto';
+                }
+                if ($.common.isEmpty(height)) {
+                    height = 'auto';
+                }
+                // blank or self
+                var _target = $.common.isEmpty(target) ? 'self' : target;
+                if ($.common.isNotEmpty(value)) {
+                    return $.common.sprintf("<img class='img-circle img-xs' style='border-radius: 0;width: 100px;height: 100px' data-height='%s' data-width='%s' data-target='%s' src='%s'/>", height, width, _target, value);
+                } else {
+                    return $.common.nullToStr(value);
+                }
+            },
             // 搜索-默认第一个form
             search: function(formId, tableId, pageNumber, pageSize) {
                 table.set(tableId);
@@ -573,6 +588,28 @@ var table = {
                     }
                 });
                 return actions.join('');
+            },
+            selectDictLabels1: function(datas, value, separator) {
+                if ($.common.isEmpty(datas) || $.common.isEmpty(value)) {
+                    return '';
+                }
+                var currentSeparator = $.common.isEmpty(separator) ? "," : separator;
+                var actions = [];
+                $.each(value.split(currentSeparator), function(i, val) {
+                    var match = false
+                    $.each(datas, function(index, dict) {
+                        if (dict.dictValue == ('' + val)) {
+                            var listClass = $.common.equals("default", dict.listClass) || $.common.isEmpty(dict.listClass) ? "" : "badge badge-" + dict.listClass;
+                            actions.push($.common.sprintf("<span class='%s'>%s</span>", listClass, dict.dictLabel));
+                            match = true
+                            return false;
+                        }
+                    });
+                    if (!match) {
+                        actions.push($.common.sprintf("<span> %s </span>", val));
+                    }
+                });
+                return actions.join(',');
             },
             // 显示表格指定列
             showColumn: function(column, tableId) {

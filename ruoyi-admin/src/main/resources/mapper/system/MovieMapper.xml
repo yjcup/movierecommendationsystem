@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MovieMapper">
+
+    <resultMap type="Movie" id="MovieResult">
+        <result property="id"    column="id"    />
+        <result property="info"    column="info"    />
+        <result property="name"    column="name"    />
+        <result property="img"    column="img"    />
+        <result property="direct"    column="direct"    />
+        <result property="starts"    column="starts"    />
+        <result property="publicTime"    column="public_time"    />
+        <result property="runtime"    column="runtime"    />
+        <result property="photos"    column="photos"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="type"    column="type"    />
+        <result property="rate"    column="rate"    />
+        <result property="count"    column="count"    />
+    </resultMap>
+
+    <sql id="selectMovieVo">
+        select id, info, name, img, direct, starts, public_time, runtime, photos, create_time, type, rate, count from movie
+    </sql>
+
+    <select id="selectMovieList" parameterType="Movie" resultMap="MovieResult">
+        <include refid="selectMovieVo"/>
+        <where>
+            <if test="info != null  and info != ''"> and info like concat('%', #{info}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="img != null  and img != ''"> and img = #{img}</if>
+            <if test="direct != null  and direct != ''"> and direct like concat('%', #{direct}, '%')</if>
+            <if test="starts != null  and starts != ''"> and starts like concat('%', #{starts}, '%')</if>
+            <if test="publicTime != null "> and public_time = #{publicTime}</if>
+            <if test="runtime != null  and runtime != ''"> and runtime = #{runtime}</if>
+            <if test="photos != null  and photos != ''"> and photos = #{photos}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="rate != null "> and rate = #{rate}</if>
+        </where>
+    </select>
+
+    <select id="selectMovieById" parameterType="Long" resultMap="MovieResult">
+        <include refid="selectMovieVo"/>
+        where id = #{id}
+    </select>
+
+
+    <select id="selectMovieRand" resultMap="MovieResult">
+        <include refid="selectMovieVo"/>
+        order by RAND() limit 5;
+    </select>
+
+
+    <insert id="insertMovie" parameterType="Movie">
+        insert into movie
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="info != null">info,</if>
+            <if test="name != null">name,</if>
+            <if test="img != null">img,</if>
+            <if test="direct != null">direct,</if>
+            <if test="starts != null">starts,</if>
+            <if test="publicTime != null">public_time,</if>
+            <if test="runtime != null">runtime,</if>
+            <if test="photos != null">photos,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="type != null">type,</if>
+            <if test="rate != null">rate,</if>
+            <if test="count != null">count,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="info != null">#{info},</if>
+            <if test="name != null">#{name},</if>
+            <if test="img != null">#{img},</if>
+            <if test="direct != null">#{direct},</if>
+            <if test="starts != null">#{starts},</if>
+            <if test="publicTime != null">#{publicTime},</if>
+            <if test="runtime != null">#{runtime},</if>
+            <if test="photos != null">#{photos},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="type != null">#{type},</if>
+            <if test="rate != null">#{rate},</if>
+            <if test="count != null">#{count},</if>
+        </trim>
+    </insert>
+
+    <update id="updateMovie" parameterType="Movie">
+        update movie
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="info != null">info = #{info},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="img != null">img = #{img},</if>
+            <if test="direct != null">direct = #{direct},</if>
+            <if test="starts != null">starts = #{starts},</if>
+            <if test="publicTime != null">public_time = #{publicTime},</if>
+            <if test="runtime != null">runtime = #{runtime},</if>
+            <if test="photos != null">photos = #{photos},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="rate != null">rate = #{rate},</if>
+            <if test="count != null">count = #{count},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMovieById" parameterType="Long">
+        delete from movie where id = #{id}
+    </delete>
+
+    <delete id="deleteMovieByIds" parameterType="String">
+        delete from movie where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -294,9 +294,17 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
         // 设置前台网站不拦截
         filterChainDefinitionMap.put("/movie/**","anon");
+        filterChainDefinitionMap.put("/movie*","anon");
+        filterChainDefinitionMap.put("/profile/upload/**","anon");
+        filterChainDefinitionMap.put("/user/**","anon");
+        filterChainDefinitionMap.put("/moviesearch","anon");
+        filterChainDefinitionMap.put("/logout","anon");
+
         filterChainDefinitionMap.put("/assets/**","anon");
         filterChainDefinitionMap.put("/index","anon");
         filterChainDefinitionMap.put("/","anon");
+        filterChainDefinitionMap.put("/blog/**","anon");
+
 
         // 退出 logout地址，shiro去清除session
         filterChainDefinitionMap.put("/admin/logout", "logout");
@@ -306,6 +314,7 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/admin/register", "anon,captchaValidate");
         // 系统权限列表
         // filterChainDefinitionMap.putAll(SpringUtils.getBean(IMenuService.class).selectPermsAll());
+
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         filters.put("onlineSession", onlineSessionFilter());
